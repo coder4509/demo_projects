@@ -1,0 +1,198 @@
+<nav class="navbar navbar-inverse">
+  <div class="container" style="justify-content: flex-start !important;">
+    <ul
+      class="nav navbar-nav"
+      style="display: flex;flex-direction: row;justify-content: flex-start;"
+    >
+      <li><a routerLink="/admin/dashboard">Dashboard</a></li>
+
+      <li class="active"><a href="/admin/customerReq">Customer Request</a></li>
+      <li><a routerLink="/admin/appointment">Appointments</a></li>
+    </ul>
+    <ul
+      class="nav navbar-nav navbar-right"
+      style="display: flex;flex-direction: row;    flex-grow: 1;
+      justify-content: flex-end;"
+    >
+      <li>
+        <a href=""><span class="glyphicon glyphicon-log-in"></span> Logout</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<div class="container">
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>Request ID</th>
+        <th>Customer ID</th>
+        <th>Customer Name</th>
+        <th>City</th>
+        <th>Requested On</th>
+        <th>Service Type</th>
+        <th>Status</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr *ngFor="let item of data">
+        <td>{{ item.req_id }}</td>
+        <td>{{ item.cust_id }}</td>
+        <td>{{ item.cust_name }}</td>
+        <td>{{ item.city }}</td>
+        <td>{{ item.createdAt }}</td>
+        <td>{{ item.cust_serv }}</td>
+        <td>{{ item.status }}</td>
+        <td style="display: flex;justify-content: space-evenly;">
+          <button
+            class="btn btn-danger"
+            data-toggle="modal"
+            data-target="#details"
+            (click)="detail(item.req_id)"
+          >
+            Details</button
+          ><button
+            class="btn btn-danger"
+            data-toggle="modal"
+            data-target="#delete"
+            (click)="cancelRequest(item.req_id)"
+            [disabled]="item.status !== 'pending'"
+          >
+            Cancel</button
+          ><button
+            data-toggle="modal"
+            data-target="#edit"
+            class="btn btn-info"
+            (click)="assignEmp(item.req_id)"
+            [disabled]="item.status !== 'pending'"
+          >
+            Assign
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- model delete -->
+  <div class="modal fade" id="delete" role="dialog">
+    <div class="modal-dialog">
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">
+            &times;
+          </button>
+          <h4 class="modal-title">Cancel</h4>
+        </div>
+        <div class="modal-body">
+          <p>Are you sure want to Cancel this Request ?</p>
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-danger"
+            data-dismiss="modal"
+            (click)="confirmCancel()"
+          >
+            Yes
+          </button>
+          <button type="button" class="btn btn-default" data-dismiss="modal">
+            No
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- end delete -->
+
+  <!-- details -->
+
+  <div class="modal fade" id="details" role="dialog">
+    <div class="modal-dialog">
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">
+            &times;
+          </button>
+          <h4 class="modal-title">Request Details</h4>
+        </div>
+        <div class="modal-body">
+          <div>Model :{{ model }}</div>
+          <div>Model No:{{ modelno }}</div>
+          <div>EngineType:{{ engintype }}</div>
+          <div>RC No:{{ rcno }}</div>
+          <div>Status:{{ status }}</div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal">
+            Yes
+          </button>
+          <button type="button" class="btn btn-default" data-dismiss="modal">
+            No
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- end -->
+
+  <!-- assign Model -->
+  <div class="modal fade" id="edit" role="dialog">
+    <div class="modal-dialog">
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">
+            &times;
+          </button>
+          <h4 class="modal-title">Assign Request</h4>
+        </div>
+        <div class="modal-body">
+          <form
+            #userupdate="ngForm"
+            (ngSubmit)="onClickSubmit(userupdate.value)"
+          >
+            <div class="form-group">
+              <label for="email">Employee:</label>
+              <select
+                class="form-control"
+                [(ngModel)]="empId"
+                name="empId"
+                (change)="changeSup($event.target)"
+              >
+                <option value="" selected>Select Employee</option>
+                <option
+                  *ngFor="let item of avale"
+                  [value]="item.supname"
+                  [disabled]="item.status === 'online'"
+                  [id]="item.supid"
+                  >{{ item.supname }}</option
+                >
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="slot">Time Slot:</label>
+              <input
+                type="time"
+                class="form-control"
+                name="timeslot"
+                [(ngModel)]="timeslot"
+                placeholder="Enter email"
+              />
+            </div>
+
+            <button type="submit" class="btn btn-danger">Assign</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">
+              No
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- end  -->
+</div>

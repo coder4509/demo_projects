@@ -1,0 +1,11 @@
+.content {
+  background: whitesmoke;
+  margin: 40px;
+  border: 1px solid #ccc;
+  padding: 10px;
+}
+.card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}

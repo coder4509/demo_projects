@@ -1,0 +1,110 @@
+<style>
+    .err {
+      color: red;
+    }
+  </style>
+<div class="container" style="width: 89%; border: 1px solid #ccc;">
+    <form  #f="ngForm" name="form" class="form animate"   #userlogin="ngForm" (ngSubmit)="f.form.valid && onSubmit()" novalidate>
+        <div class="loginheader">
+            <h4 style="color: violet;">Customer Request Form </h4>
+          </div>
+        <div class="form-group">
+            <label for="name">Customer Name</label>
+            <input type="text" class="form-control" id="name" name="cname" [(ngModel)]="custRData.cname" #cname="ngModel" required>
+               
+            <div class="err" *ngIf="f.submitted && cname.invalid ">
+                <div *ngIf="cname.errors.required">cname is required</div>
+              </div>
+
+        </div>
+
+        <div class="form-group">
+            <label for="alterEgo">Customer City</label>
+            <input type="text" class="form-control" id="alterEgo" name="city" [(ngModel)]="custRData.city" #city="ngModel" required>
+
+            <div class="err" *ngIf="f.submitted && city.invalid ">
+                <div *ngIf="city.errors.required">city is required</div>
+              </div>
+
+        </div>
+
+        <div class="form-group">
+            <label for="Date">Date</label>
+            <input type="text" class="form-control" id="Date" name="date" [(ngModel)]="custRData.date" date #date="ngModel" required>
+
+            <div class="err" *ngIf="f.submitted && date.invalid ">
+                <div *ngIf="date.errors.required">date is required</div>
+              </div>
+
+        </div>
+
+        <div class="form-group">
+            <label for="time">Time</label>
+            <input type="text" class="form-control" id="time" name="time" [(ngModel)]="custRData.time" #time="ngModel" required>
+
+            <div class="err" *ngIf="f.submitted && time.invalid ">
+                <div *ngIf="time.errors.required">time is required</div>
+              </div>
+
+        </div>
+        <div class="form-group">
+            <label>Customer Service</label>
+            <select class="form-control" name="cust_service" [(ngModel)]="custRData.cust_service" #cust_service="ngModel" required>
+                <option value="painting">painting </option>
+                <option value="">washing </option>
+                <option value="">Repair</option>
+            </select>
+            
+            <div class="err" *ngIf="f.submitted && cust_service.invalid ">
+                <div *ngIf="cust_service.errors.required">cust_service is required</div>
+              </div>
+
+
+        </div>
+        <div class="form-group">
+            <label for="mdelname">Model Name</label>
+            <input type="text" class="form-control" id="mdelname" name="modelname" [(ngModel)]="custRData.modelname" #modelname="ngModel" required>
+
+            <div class="err" *ngIf="f.submitted && modelname.invalid ">
+                <div *ngIf="modelname.errors.required">modelname is required</div>
+              </div>
+
+        </div>
+        <div class="form-group">
+            <label for="modelno">Model No</label>
+            <input type="text" class="form-control" id="modelno" name="modelno" [(ngModel)]="custRData.modelno" #modelno="ngModel" required>
+
+            <div class="err" *ngIf="f.submitted && modelno.invalid ">
+                <div *ngIf="modelno.errors.required">modelno is required</div>
+              </div>
+
+        </div>
+        <div class="form-group">
+            <label for="engineType">Engine Type</label>
+            <input type="text" class="form-control" id="engineType" name="enginetype" [(ngModel)]="custRData.enginetype" #enginetype="ngModel" required>
+           
+            <div class="err" *ngIf="f.submitted && enginetype.invalid ">
+                <div *ngIf="enginetype.errors.required">enginetype is required</div>
+              </div>
+
+        </div>
+        <div class="form-group">
+            <label for="rcno">RC NO</label>
+            <input type="text" class="form-control" id="rcno" name="rcno" [(ngModel)]="custRData.rcno" #rcno="ngModel" required>
+         
+            <div class="err" *ngIf="f.submitted && rcno.invalid ">
+                <div *ngIf="rcno.errors.required">rcno is required</div>
+              </div>
+
+        </div>
+
+        <button type="submit" class="btn btn-success" style="    height: 44px;
+        width: 92px;
+        background-color: blue;">Submit</button>
+
+        
+
+    </form>
+
+</div>
+

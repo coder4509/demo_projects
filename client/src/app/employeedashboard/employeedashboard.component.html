@@ -1,0 +1,364 @@
+<style>
+  footer {
+    background-color: #111111;
+    padding: 20px 15px;
+    overflow: hidden;
+  }
+
+  footer .footer-containertent {
+    text-align: center;
+  }
+
+  footer .footer-logo {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  footer p {
+    color: #828282;
+    margin-bottom: 15px;
+    font-size: 13px;
+  }
+
+  footer ul {
+    display: inline-block;
+  }
+
+  footer ul li {
+    float: left;
+    margin-right: 15px;
+  }
+
+  footer ul li:last-child {
+    margin-right: 0;
+  }
+
+  footer ul li a {
+    font-size: 18px;
+  }
+
+  footer ul li a i {
+    font-size: 21px;
+    color: #bcbcbc;
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    -ms-transition: all 0.3s;
+    -o-transition: all 0.3s;
+    transition: all 0.3s;
+  }
+  .footer-container {
+    background-color: aliceblue;
+    padding: 79px 69px;
+  }
+  .footer-containertent {
+  }
+  .footer-container a {
+    color: #999;
+  }
+  .footer-container a:hover {
+    opacity: 0.6;
+  }
+  .footer-container ul li {
+    color: #949494;
+    padding-top: 8px;
+  }
+
+  .footer-container ul li i {
+    margin-right: 10px;
+    font-size: 20px;
+  }
+  .footer-social-info li {
+    width: 44px;
+    height: 44px;
+    margin: 0px 15px 0px auto;
+    text-align: center;
+    float: left;
+    padding: 8px;
+    border: 1px solid #6e6e6e;
+    border-radius: 50%;
+  }
+</style>
+<nav class="navbar navbar-inverse">
+  <div class="container" style="justify-content: flex-start !important;">
+    <ul
+      class="nav navbar-nav"
+      style="display: flex;flex-direction: row;justify-content: flex-start;"
+    >
+      <li class="active">
+        <a routerLink="/supervisor/dashboard">Dashboard</a>
+      </li>
+    </ul>
+    <ul
+      class="nav navbar-nav navbar-right"
+      style="display: flex;flex-direction: row;    flex-grow: 1;
+    justify-content: flex-end;"
+    >
+      <li>
+        <a (click)="onLogout()"
+          ><span class="glyphicon glyphicon-log-in"></span> Logout</a
+        >
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<div class="container" style="height: 40%;">
+  <div
+    style="display: flex;
+  justify-content: space-around;"
+  >
+    <div class="card">
+      <div class="card-header">
+        New
+      </div>
+      <div class="card-body">
+        <div class="circle-wrap">
+          <div class="circle">
+            <div class="mask full">
+              <div
+                class="fill"
+                [style.transform]="'rotate(' + rejectDg + ')'"
+              ></div>
+            </div>
+
+            <div class="mask half">
+              <div
+                class="fill"
+                [style.transform]="'rotate(' + rejectDg + ')'"
+              ></div>
+            </div>
+
+            <div class="inside-circle">{{ totalReject }}%</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header">
+        Completed
+      </div>
+      <div class="card-body">
+        <div class="circle-wrap">
+          <div class="circle">
+            <div class="mask full">
+              <div
+                class="fill"
+                [style.transform]="'rotate(' + completeDg + ')'"
+              ></div>
+            </div>
+
+            <div class="mask half">
+              <div
+                class="fill"
+                [style.transform]="'rotate(' + completeDg + ')'"
+              ></div>
+            </div>
+
+            <div class="inside-circle">{{ totalComplete }}%</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <table class="table table-hover">
+    <caption>
+      New Appointment
+    </caption>
+    <thead>
+      <tr>
+        <th>Request ID</th>
+        <th>Customer ID</th>
+        <th>Customer Name</th>
+        <th>City</th>
+        <th>Requested On</th>
+        <th>Service Type</th>
+        <th>Assign To</th>
+        <th>Status</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr *ngFor="let item of data">
+        <td>{{ item.req_id }}</td>
+        <td>{{ item.cust_id }}</td>
+        <td>{{ item.cust_name }}</td>
+        <td>{{ item.city }}</td>
+        <td>{{ item.createdAt }}</td>
+        <td>{{ item.cust_serv }}</td>
+        <td>{{ item.assignedTo }}</td>
+        <td>{{ item.status }}</td>
+        <td style="display: flex;justify-content: space-evenly;">
+          <button
+            class="btn btn-danger"
+            data-toggle="modal"
+            data-target="#details"
+            (click)="detail(item.req_id)"
+          >
+            Details</button
+          ><button
+            class="btn btn-danger"
+            data-toggle="modal"
+            data-target="#cancel"
+            (click)="cancelApp(item.req_id, item.assignedTo)"
+            [disabled]="item.status === 'completed'"
+          >
+            Cancel</button
+          ><button
+            data-toggle="modal"
+            data-target="#complete"
+            class="btn btn-info"
+            (click)="completeApp(item.req_id, item.assignedTo)"
+            [disabled]="item.status === 'completed'"
+          >
+            Mark Done
+          </button>
+        </td>
+      </tr>
+      <tr *ngIf="data.length === 0">
+        <td colspan="9" style="text-align: center;padding:10px;color:brown;">
+          No Appointment
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <table class="table table-hover">
+    <caption>
+      Completed Appointment
+    </caption>
+    <thead>
+      <tr>
+        <th>Request ID</th>
+        <th>Customer ID</th>
+        <th>Customer Name</th>
+        <th>City</th>
+        <th>Requested On</th>
+        <th>Service Type</th>
+        <th>Assign To</th>
+        <th>Status</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr *ngFor="let item of comData">
+        <td>{{ item.req_id }}</td>
+        <td>{{ item.cust_id }}</td>
+        <td>{{ item.cust_name }}</td>
+        <td>{{ item.city }}</td>
+        <td>{{ item.createdAt }}</td>
+        <td>{{ item.cust_serv }}</td>
+        <td>{{ item.assignedTo }}</td>
+        <td>{{ item.status }}</td>
+        <td style="display: flex;justify-content: space-evenly;">
+          <button
+            class="btn btn-danger"
+            data-toggle="modal"
+            data-target="#details"
+            (click)="detail(item.req_id)"
+          >
+            Details
+          </button>
+        </td>
+      </tr>
+      <tr *ngIf="comData.length === 0">
+        <td colspan="9" style="text-align: center;padding:10px;color:brown;">
+          No Appointment
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <!-- model complete -->
+  <div class="modal fade" id="complete" role="dialog">
+    <div class="modal-dialog">
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">
+            &times;
+          </button>
+          <h4 class="modal-title">Complete</h4>
+        </div>
+        <div class="modal-body">
+          <p>Are you sure want to complete this Appointment ?</p>
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-danger"
+            data-dismiss="modal"
+            (click)="onClickSubmit()"
+          >
+            Yes
+          </button>
+          <button type="button" class="btn btn-default" data-dismiss="modal">
+            No
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- cancel -->
+  <div class="modal fade" id="cancel" role="dialog">
+    <div class="modal-dialog">
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">
+            &times;
+          </button>
+          <h4 class="modal-title">Cancel</h4>
+        </div>
+        <div class="modal-body">
+          <p>Are you sure want to cancel this Appointment ?</p>
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-danger"
+            data-dismiss="modal"
+            (click)="onClickCancel()"
+          >
+            Yes
+          </button>
+          <button type="button" class="btn btn-default" data-dismiss="modal">
+            No
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- details -->
+
+  <div class="modal fade" id="details" role="dialog">
+    <div class="modal-dialog">
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">
+            &times;
+          </button>
+          <h4 class="modal-title">Request Details</h4>
+        </div>
+        <div class="modal-body">
+          <div>Model :{{ model }}</div>
+          <div>Model No:{{ modelno }}</div>
+          <div>EngineType:{{ engintype }}</div>
+          <div>RC No:{{ rcno }}</div>
+          <div>Status:{{ status }}</div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal">
+            close
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- end -->
+</div>

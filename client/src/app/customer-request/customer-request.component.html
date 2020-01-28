@@ -1,0 +1,47 @@
+<div class="container">
+  <div>
+    <h3>My Requests</h3>
+  </div>
+  <div style="margin: 30px;">
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th>Request Id</th>
+          <th>Name</th>
+          <th>City</th>
+          <th>Model</th>
+          <th>Model No</th>
+          <th>Engine</th>
+          <th>Request Service</th>
+          <th>Requested On</th>
+          <th>Status</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let request of requestData">
+          <td>{{ request.req_id }}</td>
+          <td>{{ request.cust_name }}</td>
+          <td>{{ request.city }}</td>
+          <td>{{ request.model }}</td>
+          <td>{{ request.modelno }}</td>
+          <td>{{ request.engintype }}</td>
+          <td>{{ request.cust_serv }}</td>
+          <td>{{ request.createdAt }}</td>
+          <td [style.color]="request.status === 'accepted' ? 'green' : 'red'">
+            {{ request.status }}
+          </td>
+          <td>
+            <button
+              (click)="onCancel(request.req_id)"
+              class="btn btn-danger"
+              [disabled]="request.status !== 'pending'"
+            >
+              Cancel
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

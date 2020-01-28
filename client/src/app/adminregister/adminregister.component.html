@@ -1,0 +1,95 @@
+<style>
+  .err {
+    color: red;
+  }
+</style>
+<div class="container">
+  <div>
+    <button (click)="backreg()" class="backbutton">Back</button>
+  </div>
+
+  <div class="container" style="width: 105%; border: 1px solid #ccc;">
+    <form
+      #f="ngForm"
+      name="form"
+      class="form animate"
+      (ngSubmit)="f.form.valid && onClickSubmit(f.value)"
+      novalidate
+    >
+      <div class="loginheader">
+        <h4 style="color: violet;">Admin Registration</h4>
+      </div>
+      <div class="container">
+        <label for="uname"><b>Admin Name</b></label>
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Enter Username"
+          name="supname"
+          [(ngModel)]="userData.supname"
+          #supname="ngModel"
+          required
+        />
+
+        <div class="err" *ngIf="f.submitted && supname.invalid">
+          <div *ngIf="supname.errors.required">Admin Name is required</div>
+        </div>
+
+        <label for="psw"><b>Admin Contact No.</b></label>
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Enter contact name"
+          name="contact"
+          [(ngModel)]="userData.contact"
+          #contact="ngModel"
+          required
+        />
+
+        <div class="err" *ngIf="f.submitted && contact.invalid">
+          <div *ngIf="contact.errors.required">Admin Contact is required</div>
+        </div>
+
+        <label for="psw"><b>Email</b></label>
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Enter email"
+          name="email"
+          [(ngModel)]="userData.email"
+          #email="ngModel"
+          required
+        />
+
+        <div class="err" *ngIf="f.submitted && email.invalid">
+          <div *ngIf="email.errors.required">Admin Email is required</div>
+        </div>
+
+        <label for="psw"><b>Password</b></label>
+        <input
+          type="password"
+          class="form-control"
+          placeholder="Enter password"
+          name="password"
+          [(ngModel)]="userData.password"
+          #password="ngModel"
+          required
+        />
+
+        <div class="err" *ngIf="f.submitted && password.invalid">
+          <div *ngIf="password.errors.required">Admin Password is required</div>
+        </div>
+
+        <div>
+          <button
+            type="submit"
+            style="height: 45px;background-color: blue;
+          width: 108px;"
+          >
+            Register
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

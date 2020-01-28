@@ -1,0 +1,211 @@
+<nav class="navbar navbar-inverse">
+  <div class="container" style="justify-content: flex-start !important;">
+    <ul
+      class="nav navbar-nav"
+      style="display: flex;flex-direction: row;justify-content: flex-start;"
+    >
+      <li><a routerLink="/admin/dashboard">Dashboard</a></li>
+
+      <li><a routerLink="/admin/customerReq">Customer Request</a></li>
+      <li class="active"><a href="/admin/appointment">Appointments</a></li>
+    </ul>
+    <ul
+      class="nav navbar-nav navbar-right"
+      style="display: flex;flex-direction: row;    flex-grow: 1;
+      justify-content: flex-end;"
+    >
+      <li>
+        <a href="" (click)="onLogout()"
+          ><span class="glyphicon glyphicon-log-in"></span> Logout</a
+        >
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<div class="container">
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>Appointment ID</th>
+        <th>Appointment On</th>
+        <th>Customer Name</th>
+        <th>supervisor ID</th>
+        <th>Service Type</th>
+        <th>Assigned By</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of data">
+        <td>{{ item.req_id }}</td>
+        <td>{{ item.appointmentDate }}</td>
+        <td>{{ item.cust_name }}</td>
+        <td>{{ item.assignedTo }}</td>
+        <td>{{ item.cust_serv }}</td>
+        <td>{{ item.acceptedBy }}</td>
+        <td style="display: flex;">
+          <button
+            [ngClass]="{
+              'btn btn-success': item.status == 'accepted',
+              'btn btn-success': item.status == 'completed',
+              'btn btn-danger': item.status == 'pending',
+              'btn btn-danger': item.status == 'rejected'
+            }"
+          >
+            {{ item.status }}
+          </button>
+          <button
+            data-toggle="modal"
+            data-target="#done"
+            class="btn btn-info"
+            style="margin-left: 12px;"
+            (click)="downloadInvoice(item.req_id)"
+          >
+            Invoice
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <!-- done model -->
+
+  <div class="modal fade" id="done" role="dialog">
+    <div class="modal-dialog">
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">
+            &times;
+          </button>
+          <h4 class="modal-title">Download Invoice</h4>
+        </div>
+        <div class="modal-body">
+          <p>Press "Yes" to download Invoice</p>
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-danger"
+            data-dismiss="modal"
+            (click)="confirmDownload()"
+          >
+            Yes
+          </button>
+          <button type="button" class="btn btn-default" data-dismiss="modal">
+            No
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="isShow">
+    <div style="display: flex;justify-content: flex-end;">
+      <button (click)="closeInvoice()" class="btn btn-danger">X</button>
+    </div>
+    <div #content class="content">
+      <div class="card" *ngFor="let invoiceInfo of invoiceData">
+        <div class="card-header">
+          <div>
+            <h1>#Invoice - {{ invoiceInfo.req_id }}</h1>
+          </div>
+          <div>
+            <h4>Date:- 23-11-2040</h4>
+            <h4>Contact:- 98989898989</h4>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="container-fluid">
+            <h2>Details</h2>
+            <p>
+              please check the details carefully.
+            </p>
+            <table class="table" width="100px">
+              <caption>
+                Customer Details
+              </caption>
+              <thead class="thead-dark">
+                <tr>
+                  <th>Request Id</th>
+                  <th>Created On</th>
+                  <th>Name</th>
+                  <th>City</th>
+                  <th>Service Type</th>
+                  <th>Model</th>
+                  <th>Model No</th>
+                  <th>Engine Type</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>{{ invoiceInfo.req_id }}</td>
+                  <td>{{ invoiceInfo.createdAt }}</td>
+                  <td>{{ invoiceInfo.cust_name }}</td>
+                  <td>{{ invoiceInfo.city }}</td>
+                  <td>{{ invoiceInfo.cust_serv }}</td>
+                  <td>{{ invoiceInfo.model }}</td>
+                  <td>{{ invoiceInfo.modelno }}</td>
+                  <td>{{ invoiceInfo.engintype }}</td>
+                </tr>
+              </tbody>
+            </table>
+            <table class="table">
+              <caption>
+                Appointment Details
+              </caption>
+              <thead class="thead-light">
+                <tr>
+                  <th>Appointment Id</th>
+                  <th>Accepted On</th>
+                  <th>Accepted By</th>
+                  <th>Employee ID</th>
+                  <th>Completed On</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>{{ invoiceInfo.req_id }}</td>
+                  <td>{{ invoiceInfo.appointmentDate }}</td>
+                  <td>{{ invoiceInfo.acceptedBy }}</td>
+                  <td>{{ invoiceInfo.assignedTo }}</td>
+                  <td>{{ invoiceInfo.appointmentDate }}</td>
+                  <td>{{ invoiceInfo.status }}</td>
+                </tr>
+              </tbody>
+            </table>
+            <table class="table">
+              <caption>
+                Payment Details
+              </caption>
+              <thead class="thead-light">
+                <tr>
+                  <th>Amount</th>
+                  <th>Offer Code</th>
+                  <th>Applied Discount</th>
+                  <th>Status</th>
+                  <th>Total Paid</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>{{ invoiceInfo.amount }}</td>
+                  <td>{{ invoiceInfo.offercode }}</td>
+                  <td>{{ invoiceInfo.discount }}</td>
+                  <td>{{ invoiceInfo.paidStatus }}</td>
+                  <td>{{ invoiceInfo.paid }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="card-footer" style="display: flex;justify-content: center;">
+          <h4>&copy;https://carservice.com</h4>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- end model -->
+</div>

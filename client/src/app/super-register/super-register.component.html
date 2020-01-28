@@ -1,0 +1,88 @@
+<style>
+  .err {
+    color: red;
+  }
+</style>
+
+<div class="container">
+  <form
+    #f="ngForm"
+    name="form"
+    class="form animate"
+    (ngSubmit)="f.form.valid && onClickSubmit(f.value)"
+    novalidate
+  >
+    <div class="container" style="width: 50%; border: 1px solid #ccc;">
+      <label for="uname"><b>Supervisor Name</b></label>
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Enter Username"
+        name="supname"
+        [(ngModel)]="superData.supname"
+        #supname="ngModel"
+        required
+      />
+
+      <div class="err" *ngIf="f.submitted && supname.invalid">
+        <div *ngIf="supname.errors.required">supname is required</div>
+      </div>
+
+      <label for="psw"><b>Supervisor Contact No.</b></label>
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Enter contact name"
+        name="contact"
+        [(ngModel)]="superData.contact"
+        #contact="ngModel"
+        required
+      />
+
+      <div class="err" *ngIf="f.submitted && contact.invalid">
+        <div *ngIf="contact.errors.required">contact is required</div>
+      </div>
+
+      <label for="psw"><b>Email</b></label>
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Enter email"
+        name="email"
+        [(ngModel)]="superData.email"
+        #email="ngModel"
+        required
+      />
+
+      <div class="err" *ngIf="f.submitted && email.invalid">
+        <div *ngIf="email.errors.required">email is required</div>
+      </div>
+
+      <label for="psw"><b>Password</b></label>
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Enter email"
+        name="password"
+        [(ngModel)]="superData.password"
+        #password="ngModel"
+        required
+      />
+
+      <div class="err" *ngIf="f.submitted && password.invalid">
+        <div *ngIf="password.errors.required">password is required</div>
+      </div>
+
+      <div>
+        <button
+          type="submit"
+          style="    height: 44px;
+          width: 92px;
+          background-color: blue;"
+        >
+          Add
+        </button>
+      </div>
+    </div>
+  </form>
+</div>

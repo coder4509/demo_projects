@@ -1,0 +1,86 @@
+<div class="container">
+  <h1>Customer Request Form</h1>
+  <form
+    class="modal-content animate"
+    style="padding: 13px;"
+    #userlogin="ngForm"
+    (ngSubmit)="onClickSubmit(userlogin.value)"
+  >
+    <div class="form-group">
+      <label for="name">Customer Name</label>
+      <input
+        type="text"
+        class="form-control"
+        id="name"
+        name="cname"
+        [(ngModel)]="cname"
+      />
+    </div>
+
+    <div class="form-group">
+      <label for="alterEgo">Customer City</label>
+      <input
+        type="text"
+        class="form-control"
+        id="alterEgo"
+        name="city"
+        [(ngModel)]="city"
+      />
+    </div>
+
+    <div class="form-group">
+      <label>Customer Service</label>
+      <select
+        class="form-control"
+        name="cust_service"
+        [(ngModel)]="cust_service"
+      >
+        <option value="painting">painting </option>
+        <option value="washing">washing </option>
+        <option value="Repair">Repair</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="mdelname">Model Name</label>
+      <input
+        type="text"
+        class="form-control"
+        id="mdelname"
+        name="modelname"
+        [(ngModel)]="modelname"
+      />
+    </div>
+    <div class="form-group">
+      <label for="modelno">Model No</label>
+      <input
+        type="text"
+        class="form-control"
+        id="modelno"
+        name="modelno"
+        [(ngModel)]="modelno"
+      />
+    </div>
+    <div class="form-group">
+      <label for="engineType">Engine Type</label>
+      <input
+        type="text"
+        class="form-control"
+        id="engineType"
+        name="enginetype"
+        [(ngModel)]="enginetype"
+      />
+    </div>
+    <div class="form-group">
+      <label for="rcno">RC NO</label>
+      <input
+        type="text"
+        class="form-control"
+        id="rcno"
+        name="rcno"
+        [(ngModel)]="rcno"
+      />
+    </div>
+
+    <button type="submit" class="btn btn-success">Submit</button>
+  </form>
+</div>

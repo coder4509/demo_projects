@@ -1,0 +1,59 @@
+<style>
+  .err {
+    color: red;
+  }
+</style>
+<div class="container">
+  <div>
+    <button (click)="back()" class="backbutton">Back</button>
+  </div>
+  <div class="container " style="width: 28%; border: 1px solid #ccc;">
+    <form
+      #f="ngForm"
+      name="form"
+      class="form animate"
+      (ngSubmit)="f.form.valid && onClickSubmit(f.value)"
+      novalidate
+    >
+      <div class="loginheader">
+        <h4>Customer</h4>
+      </div>
+      <p style="color:red" *ngIf="error">Please enter correct credentials.</p>
+      <label for="uname"><b>Username</b></label>
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Enter Username"
+        name="email"
+        [(ngModel)]="user.email"
+        #email="ngModel"
+        required
+      />
+      <div class="err" *ngIf="f.submitted && email.invalid">
+        <div *ngIf="email.errors.required">Email is required</div>
+      </div>
+      <label for="psw"><b>Password</b></label>
+      <input
+        type="password"
+        class="form-control"
+        placeholder="Enter Password"
+        name="password"
+        [(ngModel)]="user.password"
+        #password="ngModel"
+        required
+      />
+      <div class="err" *ngIf="f.submitted && password.invalid">
+        <div *ngIf="password.errors.required">Passwored is required</div>
+      </div>
+
+      <div>
+        <br />
+        <button type="submit" class="btn btn-primary">Login</button>
+      </div>
+
+      <div class="linkregi">
+        <a routerLink="register">Register</a>
+      </div>
+    </form>
+  </div>
+</div>

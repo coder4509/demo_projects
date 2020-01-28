@@ -1,0 +1,122 @@
+<style>
+  .err {
+    color: red;
+  }
+</style>
+<div class="container">
+  <button (click)="backreg()" class="backbutton">Back</button>
+</div>
+<div class="container" style="width: 88%; height:104%; border: 1px solid #ccc;">
+  <form
+    #f="ngForm"
+    name="form"
+    class="form animate"
+    (ngSubmit)="f.form.valid && onClickSubmit(f.value)"
+    novalidate
+  >
+    <div class="loginheader">
+      <h4 style="color: violet;">Customer Registration</h4>
+    </div>
+    <div class="container">
+      <label for="uname"><b>First Name</b></label>
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Enter Username"
+        name="fname"
+        [(ngModel)]="CustomerData.fname"
+        #fname="ngModel"
+        required
+      />
+      <div class="err" *ngIf="f.submitted && fname.invalid">
+        <div *ngIf="fname.errors.required">fname is required</div>
+      </div>
+
+      <label for="psw"><b>Last Name</b></label>
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Enter last name"
+        name="lname"
+        [(ngModel)]="CustomerData.lname"
+        #lname="ngModel"
+        required
+      />
+
+      <div class="err" *ngIf="f.submitted && lname.invalid">
+        <div *ngIf="lname.errors.required">lname is required</div>
+      </div>
+
+      <label for="psw"><b>Email</b></label>
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Enter email"
+        name="email"
+        [(ngModel)]="CustomerData.email"
+        #email="ngModel"
+        required
+      />
+
+      <div class="err" *ngIf="f.submitted && email.invalid">
+        <div *ngIf="email.errors.required">email is required</div>
+      </div>
+
+      <label for="psw"><b>Address</b></label>
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Enter address"
+        name="address"
+        [(ngModel)]="CustomerData.address"
+        #address="ngModel"
+        required
+      />
+
+      <div class="err" *ngIf="f.submitted && address.invalid">
+        <div *ngIf="address.errors.required">address is required</div>
+      </div>
+
+      <label for="psw"><b>Contact No</b></label>
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Enter contact no"
+        name="contact_no"
+        [(ngModel)]="CustomerData.contact_no"
+        #contact_no="ngModel"
+        required
+      />
+
+      <div class="err" *ngIf="f.submitted && contact_no.invalid">
+        <div *ngIf="contact_no.errors.required">contact_no is required</div>
+      </div>
+
+      <label for="psw"><b>Password</b></label>
+      <input
+        type="password"
+        class="form-control"
+        placeholder="Enter Password"
+        name="password"
+        [(ngModel)]="CustomerData.password"
+        #password="ngModel"
+        required
+      />
+
+      <div class="err" *ngIf="f.submitted && password.invalid">
+        <div *ngIf="password.errors.required">password is required</div>
+      </div>
+      <br />
+      <div>
+        <button
+          type="submit"
+          style="    height: 44px;
+          width: 92px;
+          background-color: blue;"
+        >
+          Register
+        </button>
+      </div>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,38 @@
+body {
+    background: url("../../assets/home.jpg");
+}
+
+.nav {
+    border: 1px solid black;
+    background: url("../../assets/nav.jpg");
+    padding: 20px 25px;
+}
+
+a {
+    color: white;
+    text-decoration: none;
+}
+
+#w {
+    color: white;
+    text-align: center;
+}
+
+#w2 {
+    margin-left: 40px;
+}
+
+#w3 {
+    margin-left: 60px;
+}
+
+#c {
+    border: 1px solid red;
+    padding: 10px 15px;
+    background: seagreen;
+    border-radius: 10px;
+}
+
+#c1 {
+    color: white;
+}
